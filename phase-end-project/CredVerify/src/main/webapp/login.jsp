@@ -10,7 +10,7 @@
     <form name = "loginForm" method ="post" action="login">  
         <div class="container">   
             <label>Name : </label>   
-            <input type="text" placeholder="Enter Username" name="username" required>  
+            <input type="text" placeholder="Enter name" name="name" required>  
             <label>Password : </label>   
             <input type="password" placeholder="Enter Password" name="password" required>  
             <button type="submit">Login</button>   
