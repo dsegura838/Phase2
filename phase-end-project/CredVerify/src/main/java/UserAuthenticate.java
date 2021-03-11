@@ -52,7 +52,8 @@ public class UserAuthenticate extends HttpServlet {
                         out.println("ID: " + String.valueOf(p.getID()) + ", Name: " + p.getName() +
                                         ", Email: " + String.valueOf(p.getEmail()) + ", Password: " + p.getPassword() + "<br>");
                 }
-                
+             
+            out.println("<a href = 'index.jsp'>Back to Main</a<br>");
             out.println("</body></html>");
             
             

@@ -36,29 +36,7 @@ public class UserRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        try {
-               SessionFactory factory = HibernateUtil.getSessionFactory();
-               
-               Session session = factory.openSession();
-               // using HQL
-               List<User> list = session.createQuery("from User", User.class).list();
-               
-               session.close();
-               
-                PrintWriter out = response.getWriter();
-                out.println("<html><body>");
-                out.println("<b>User Listing</b><br>");
-                for(User p: list) {
-                        out.println("ID: " + String.valueOf(p.getID()) + ", Name: " + p.getName() +
-                                        ", Email: " + String.valueOf(p.getEmail()) + ", Password: " + p.getPassword() + "<br>");
-                }
-                
-            out.println("</body></html>");
-            
-            
-        } catch (Exception ex) {
-                throw ex;
-        }
+        
 	}
 
 	/**
@@ -66,6 +44,49 @@ public class UserRegister extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		try {
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            
+            Session session = factory.openSession();
+            
+            //get transaction and begin session
+            session.getTransaction().begin();
+            
+            //instantiate user class
+            User user = new User();
+            
+            //get field values
+            String name = request.getParameter("name");
+            String email = request.getParameter("email");
+            String password = request.getParameter("psw");
+            
+            //Insert new user to user table
+            user.setName(name);
+            user.setEmail(email);
+            user.setPassword(password);
+            
+            //save the session
+            session.save(user);
+            
+            //commit the changes
+            session.getTransaction().commit();
+            
+            //close the session
+            session.close();
+            
+             PrintWriter out = response.getWriter();
+             out.println("<html><body>");
+            
+             out.println(name+" has successfully registered");
+             out.println("<br>");
+         //link back to Main menu    
+         out.println("<a href = 'index.jsp'>Back to Main</a<br>");    
+         out.println("</body></html>");
+         
+         
+     } catch (Exception ex) {
+             throw ex;
+     }
 		doGet(request, response);
 	}
 
